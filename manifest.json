@@ -15,30 +15,18 @@
     "default_popup": "/inc/html/popup.html"
   },
 
-  "background":
-  {
-      "page" : "/inc/html/background.html",
-      "persistent": true
-  },
-
-  "options_page": "/inc/html/options.html",
-
   "permissions": [
     "tabs", "activeTab", "<all_urls>", "storage", "contentSettings", "clipboardRead", "clipboardWrite"
   ],
 
   "web_accessible_resources": [
-    "/fonts/*.woff2",
     "/images/*.png",
     "/images/*.gif",
     "/images/logos/*.png",
     "/images/cursors/*.cur",
     "/inc/css/*.css",
     "/inc/js/*.js",
-    "/inc/html/*.html",
-    "/inc/boostrap/css/*.*",
-    "/inc/boostrap/fonts/*.*",
-    "/inc/boostrap/js/*.*"
+    "/inc/html/*.html"
   ]
 
 }

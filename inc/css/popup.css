@@ -2,22 +2,62 @@
 @import url('https://fonts.googleapis.com/css?family=Griffy|Lobster+Two:700');
 </style>
 
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.shadow {
+  filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=2, Color='#444')";
+  filter: url(#drop-shadow);
+  -webkit-filter: drop-shadow(2px 2px 1px rgba(127,127,127,0.9));
+  filter: drop-shadow(2px 2px 1px rgba(127,127,127,0.9));
+}
+
 .header {
+    display: flex;
     background-color: #eee;
-    display:block;
     top: 0;
     left: 0;
     padding: 8px;
     margin: -8px;
     margin-bottom: 8px;
+    font-size: 100%;
+    min-width: 300px;
 }
 
-h1 {
+.header h1 {
     font-family: 'Lobster Two', cursive;
     text-shadow: 2px 2px 2px gray;
-    font-size: 22px;
-    font-weight: bold;
+    font-size: 24px;
+    font-weight: 700;
     white-space: nowrap;
-    -webkit-margin-before: 0;
-    -webkit-margin-after: 0;
+    margin: 0;
+    margin-left: 4px;
 } 
+
+.toolbarBtn {
+  width:15px;
+  height:15px;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.disabled {
+  opacity: 0.25;
+}
+
+#closeBtn {
+    right: 4px;
+    position: absolute;
+    display: inline-block;
+    top: 4px;
+}
+
+.btn img:hover, .toolbarBtn:not(.disabled):hover, #sampleBtn:hover {
+  opacity: 1;
+  filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=2, Color='#444')";
+  filter: url(#drop-shadow);
+  -webkit-filter: drop-shadow(2px 2px 1px rgba(127,127,127,0.9));
+  filter: drop-shadow(2px 2px 1px rgba(127,127,127,0.9));
+}

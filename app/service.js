@@ -27,6 +27,7 @@ angular.module('blackInkApp').service('blackInkStorage', function ($q) {
     this.add = function (newContent) {
     	console.log('add', newContent);
     	if(newContent=={}) return;
+    	newContent.date = new Date();
         _this.Data = Object.assign(_this.Data, newContent);
         //console.log('assign_2', newContent, _this.Data);
         _this.sync();

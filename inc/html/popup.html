@@ -4,9 +4,6 @@
 <head>
     <title>Black Ink</title>
     <link href='/inc/css/popup.css' rel='stylesheet'>
-    <script type="text/javascript" src="/lib/angular/angular.js"></script>
-    <script type="text/javascript" src="/app/app.js"></script>
-    <script type="text/javascript" src="/app/ctrl.js"></script>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> --> 
 </head>
 
@@ -30,22 +27,22 @@
         <div id='options' class='roundBorder'>
             <table role='presentation'>
                 <tr>
-                    <td style="color:{{IncColor}};font-weight:{{TextWeight}};">Color</td>
+                    <td style="color:{{InkColor}};font-weight:{{TextWeight}};">Color</td>
                     <td>
-                        <input type="radio" name="color" ng-model="IncColor" value="black"/>
+                        <input type="radio" name="color" ng-model="InkColor" value="black"/>
                         <label for="clBlack">Black</label>
                     </td>
                     <td>
-                        <input type="radio" name="color" ng-model="IncColor" value="navy"/>
+                        <input type="radio" name="color" ng-model="InkColor" value="navy"/>
                         <label for="clBlue">Blue</label>
                     </td>
                     <td>
-                        <input type="radio" name="color" ng-model="IncColor" value="#b60000"/>
+                        <input type="radio" name="color" ng-model="InkColor" value="#b60000"/>
                         <label for="clRed">Red</label>
                     </td>
                 </tr>
                 <tr>
-                    <td style="color:{{IncColor}};font-weight:{{TextWeight}};">Weight</td>
+                    <td style="color:{{InkColor}};font-weight:{{TextWeight}};">Weight</td>
                     <td>
                         <input type="radio" name="weight" ng-model="TextWeight" value=""/>
                         <label for="wNone">Default</label>
@@ -63,8 +60,11 @@
         </div>
     </form>
 
-    <!-- <script type="text/javascript" src="/app/app.js"></script>
-     -->
+    <script type="text/javascript" src="/lib/angular/angular.js"></script>
+    <script type="text/javascript" src="/app/utils.js"></script>
+    <script type="text/javascript" src="/app/app.js"></script>
+    <script type="text/javascript" src="/app/ctrl.js"></script>
+    <script type="text/javascript" src="/app/service.js"></script>
 
 </body>
  

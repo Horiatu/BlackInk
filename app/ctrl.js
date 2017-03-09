@@ -1,11 +1,49 @@
-var blackIncApp=angular.module('blackInkApp'); 
-blackIncApp.controller('BlackInkCtrl',function($scope){
+angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, blackInkStorage) {
 	$scope.UndoDis='true'; 
     $scope.RedoDis='true';
-    $scope.IncColor='black';
+    $scope.InkColor='black';
     $scope.TextWeight='bold';
     $scope.showHelp='inherit';
     $scope.helpTooltip='hide help';
+
+	$scope.blackInkStorage = blackInkStorage;
+
+	$scope.$watch('blackInkStorage.Data', function() {
+        console.log('watch', $scope.blackInkStorage.Data);
+        //$scope.InkColor = $scope.blackInkStorage.InkColor;
+    });
+
+    $scope.blackInkStorage.findAll(function(data){
+    	//$scope.removeAll();
+        //$scope.todoList = data;
+        //console.log('findAll', data);
+        //if(data && data.length===0) {
+        var init = {};
+        ['InkColor', 'TextWeight'].forEach(function(val) {
+        	if(!data.hasOwnProperty(val)) {
+        		init[val] = $scope[val];
+        	}
+        });
+
+        $scope.add(init);
+        //}
+        $scope.$apply();
+    });
+
+    $scope.add = function(newContent) {
+        //console.log('add', newContent);
+        blackInkStorage.add(newContent);
+        $scope.newContent = '';
+    };
+
+    $scope.removeAll = function() {
+        //console.log('removeAll');
+        blackInkStorage.removeAll();
+    };
+
+    // $scope.removeAll();
+    // $scope.add({'InkColor': $scope.InkColor, 'TextWeight': $scope.TextWeight});
+
     $scope.toggleShowHelp = function() {
     	if($scope.showHelp==='inherit') {
     		$scope.showHelp='none';
@@ -19,49 +57,7 @@ blackIncApp.controller('BlackInkCtrl',function($scope){
     $scope.closeExtension = function() {
     	 window.close();
     };
+
+
 });
 
-blackIncApp.service('blackInkStorage', function ($q) {
-    var _this = this;
-    this.data = [];
-    this.findAll = function(callback) {
-        chrome.storage.sync.get('blackInk', function(keys) {
-            if (keys.blackInk !== null) {
-                _this.data = keys.blackInk;
-                for (var i=0; i<_this.data.length; i++) {
-                    _this.data[i].id = i + 1;
-                }
-                console.log(_this.data);
-                callback(_this.data);
-            }
-        });
-    };
-
-    this.sync = function() {
-        chrome.storage.sync.set({blackInk: this.data}, function() {
-            console.log('Data is stored in Chrome storage');
-        });
-    };
-
-    this.add = function (newContent) {
-        var id = this.data.length + 1;
-        var blackInk = {
-            id: id,
-            content: newContent,
-            completed: false,
-            createdAt: new Date()
-        };
-        this.data.push(blackInk);
-        this.sync();
-    };
-
-    this.remove = function(blackInk) {
-        this.data.splice(this.data.indexOf(blackInk), 1);
-        this.sync();
-    };
-
-    this.removeAll = function() {
-        this.data = [];
-        this.sync();
-    };
-});

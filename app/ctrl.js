@@ -3,7 +3,22 @@ blackIncApp.controller('BlackInkCtrl',function($scope){
 	$scope.UndoDis='true'; 
     $scope.RedoDis='true';
     $scope.IncColor='black';
-    $scope.TextWeight='normal';
+    $scope.TextWeight='bold';
+    $scope.showHelp='inherit';
+    $scope.helpTooltip='hide help';
+    $scope.toggleShowHelp = function() {
+    	if($scope.showHelp==='inherit') {
+    		$scope.showHelp='none';
+		    $scope.helpTooltip='show help';
+    	}
+    	else {
+    		$scope.showHelp='inherit';
+		    $scope.helpTooltip='hide help';
+    	}
+    };
+    $scope.closeExtension = function() {
+    	 window.close();
+    };
 });
 
 blackIncApp.service('blackInkStorage', function ($q) {

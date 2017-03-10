@@ -1,43 +1,44 @@
 angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, blackInkStorage) {
 	$scope.UndoDis='true'; 
     $scope.RedoDis='true';
-    $scope.InkColor='black';
+    // $scope.InkColor='black';
     $scope.TextWeight='bold';
     $scope.showHelp='inherit';
     $scope.helpTooltip='hide help';
 
 	$scope.blackInkStorage = blackInkStorage;
 
-	$scope.$watch('blackInkStorage.Data', function() {
-        console.log('watch', $scope.blackInkStorage.Data);
-        //$scope.InkColor = $scope.blackInkStorage.InkColor;
+	$scope.$watch('blackInkStorage.Data', function(value) {
+		if($scope.blackInkStorage.Data===undefined) return;
+        $scope.InkColor = $scope.blackInkStorage.Data.InkColor;
+        $scope.TextWeight = $scope.blackInkStorage.Data.TextWeight;
     });
 
-    $scope.blackInkStorage.findAll(function(data){
-    	//$scope.removeAll();
-        //$scope.todoList = data;
-        //console.log('findAll', data);
-        //if(data && data.length===0) {
-        var init = {};
-        ['InkColor', 'TextWeight'].forEach(function(val) {
-        	if(!data.hasOwnProperty(val)) {
-        		init[val] = $scope[val];
-        	}
-        });
+ 	$scope.$watch('InkColor', function(value) {
+        var inkColor = $scope.InkColor;
+        if(inkColor && inkColor !== undefined) {
+        	$scope.add({'InkColor': inkColor});
+        }
+    });
 
-        $scope.add(init);
-        //}
-        $scope.$apply();
+ 	$scope.$watch('TextWeight', function(value) {
+        var textWeight = $scope.TextWeight;
+        if(textWeight && textWeight !== undefined) {
+        	$scope.add({'TextWeight': textWeight});
+        }
+    });
+
+    $scope.blackInkStorage.findAll({InkColor:'black', TextWeight:'bold'}).then(function(data){
+        console.log('findAll', data);
+        $scope.blackInkStorage.Data=data;
+        console.log('$scope.blackInkStorage.Data', $scope.blackInkStorage.Data);
     });
 
     $scope.add = function(newContent) {
-        //console.log('add', newContent);
         blackInkStorage.add(newContent);
-        $scope.newContent = '';
     };
 
     $scope.removeAll = function() {
-        //console.log('removeAll');
         blackInkStorage.removeAll();
     };
 
@@ -57,7 +58,6 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, blackI
     $scope.closeExtension = function() {
     	 window.close();
     };
-
 
 });
 

@@ -76,7 +76,7 @@ if (!('forEachProp' in Object.prototype)) {
     	var i = 0;
 		for (var name in this) {
 			if (this.hasOwnProperty(name)) {
-			  	action.call(that, name, i++, this);
+			  	action.call(that, name, this[name], i++, this);
 			}
 		}
 	};

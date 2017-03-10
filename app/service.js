@@ -43,17 +43,18 @@ angular.module('blackInkApp').service('blackInkStorage', function ($q) {
     this.add = function (newValues) {
     	if(newValues=={}) return;
     	console.log('add', newValues, _this.Data);
-    	var data = _this.Data;
+    	var changed = false;
         newValues.forEachProp(function(prop, val) {
-        	data[prop] = val;
-        	// console.log(prop, data[prop]);
+        	if(_this.Data[prop] !== val)
+        	{
+        		_this.Data[prop] = val;
+        		changed = true;
+        	}
         });
-        // console.log('newValues, data, _this.Data:', newValues, data, _this.Data);
-        //if(data !== _this.Data) {
-        	_this.Data = data;
+        if(changed) {
 	    	_this.Data.date = new Date().toLocaleTimeString();
 	        _this.sync();
-        //}
+        }
     };
 
     this.removeAll = function() {

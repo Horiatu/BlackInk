@@ -1,17 +1,25 @@
 angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, blackInkStorage) {
 	$scope.UndoDis='true'; 
     $scope.RedoDis='true';
-    $scope.InkColor='black';
-    $scope.TextWeight='bold';
-    $scope.showHelp='inherit';
+    // $scope.InkColor='black';
+    // $scope.TextWeight='bold';
+    $scope.ShowHelp='inherit';
     $scope.helpTooltip='hide help';
 
 	$scope.blackInkStorage = blackInkStorage;
 
 	$scope.$watch('blackInkStorage.Data', function(value) {
 		if($scope.blackInkStorage.Data===undefined) return;
-        $scope.InkColor = $scope.blackInkStorage.Data.InkColor;
-        $scope.TextWeight = $scope.blackInkStorage.Data.TextWeight;
+		var changed = false;
+		if($scope.InkColor !== $scope.blackInkStorage.Data.InkColor) {
+	        $scope.InkColor = $scope.blackInkStorage.Data.InkColor;
+	        changed = true;
+	    }
+		if($scope.TextWeight !== $scope.blackInkStorage.Data.TextWeight) {
+	        $scope.TextWeight = $scope.blackInkStorage.Data.TextWeight;
+	        changed = true;
+	    }
+        $scope.blackInkStorage.sync(changed);
     });
 
  	$scope.$watch('InkColor', function(value) {
@@ -46,12 +54,12 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, blackI
     // $scope.add({'InkColor': $scope.InkColor, 'TextWeight': $scope.TextWeight});
 
     $scope.toggleShowHelp = function() {
-    	if($scope.showHelp==='inherit') {
-    		$scope.showHelp='none';
+    	if($scope.ShowHelp==='inherit') {
+    		$scope.ShowHelp='none';
 		    $scope.helpTooltip='show help';
     	}
     	else {
-    		$scope.showHelp='inherit';
+    		$scope.ShowHelp='inherit';
 		    $scope.helpTooltip='hide help';
     	}
     };

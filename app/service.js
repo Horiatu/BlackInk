@@ -24,15 +24,6 @@ angular.module('blackInkApp').service('blackInkStorage', function ($q) {
         return defer.promise;
     };
 
-    this.sync = function() {
-        chrome.storage.sync.set({'blackInk': _this.Data}, function() {
-            console.log('Data is stored in Chrome storage');
-            // chrome.storage.sync.get('blackInk', function(keys) {
-        	// 	console.log('keys', keys);
-        	// });
-        });
-    };
-
     this.add = function (newValues) {
     	if(newValues=={}) return;
     	// console.log('add', newValues, _this.Data);
@@ -45,10 +36,8 @@ angular.module('blackInkApp').service('blackInkStorage', function ($q) {
         		changed = true;
         	}
         });
-        if(changed) {
-	    	_this.Data.date = new Date().toLocaleTimeString();
-	        _this.sync();
-        }
+    	
+        _this.sync(changed);
     };
 
     this.removeAll = function() {
@@ -58,4 +47,18 @@ angular.module('blackInkApp').service('blackInkStorage', function ($q) {
             console.log('Data in Chrome storage erased');
         });
     };
+
+    this.sync = function(update) {
+    	console.log('update:', update);
+    	if(!update) return;
+    	_this.Data.date = new Date().toLocaleTimeString();
+        chrome.storage.sync.set({'blackInk': _this.Data}, function() {
+            console.log('Data is stored in Chrome storage');
+            // chrome.storage.sync.get('blackInk', function(keys) {
+        	// 	console.log('keys', keys);
+        	// });
+        });
+    };
+
+
 });

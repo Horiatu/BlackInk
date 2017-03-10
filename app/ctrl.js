@@ -1,7 +1,7 @@
 angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, blackInkStorage) {
 	$scope.UndoDis='true'; 
     $scope.RedoDis='true';
-    // $scope.InkColor='black';
+    $scope.InkColor='black';
     $scope.TextWeight='bold';
     $scope.showHelp='inherit';
     $scope.helpTooltip='hide help';
@@ -29,9 +29,9 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, blackI
     });
 
     $scope.blackInkStorage.findAll({InkColor:'black', TextWeight:'bold'}).then(function(data){
-        console.log('findAll', data);
+        // console.log('findAll', data);
         $scope.blackInkStorage.Data=data;
-        console.log('$scope.blackInkStorage.Data', $scope.blackInkStorage.Data);
+        // console.log('$scope.blackInkStorage.Data', $scope.blackInkStorage.Data);
     });
 
     $scope.add = function(newContent) {

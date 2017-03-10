@@ -5,22 +5,15 @@ angular.module('blackInkApp').service('blackInkStorage', function ($q) {
     this.findAll = function(options) {
       	var data = {};
     	var defer = $q.defer();
-		console.log('options:',options);
+		// console.log('options:',options);
         chrome.storage.sync.get('blackInk', function(keys) {
         	keys.forEachProp(function(key, value) {
         		options.forEachProp(function(k, v) {
-        			if(!value.hasOwnProperty(k) || value[k]===undefined)
-    	    		{
-    	    			data[k]=v;
-	        			// console.log('k,v:',k,v);
-	        			// console.log('k, _this.Data[k]:',k, data[k]);
-	        			// console.log('k, _this.Data.InkColor:',k, data.InkColor);
-	        			// console.log('data:',data);
+        			if(!value.hasOwnProperty(k) || value[k] === undefined) {
+    	    			data[k] = v;
     	    		}
     	    		else {
-	        			//console.log('k,value[k]:',k,value[k]);
     	    			data[k] = value[k];
-	        			//console.log('_this.Data[k]:',_this.Data,_this.Data[k]);
     	    		}
 
         		});
@@ -34,7 +27,7 @@ angular.module('blackInkApp').service('blackInkStorage', function ($q) {
     this.sync = function() {
         chrome.storage.sync.set({'blackInk': _this.Data}, function() {
             console.log('Data is stored in Chrome storage');
-         //    chrome.storage.sync.get('blackInk', function(keys) {
+            // chrome.storage.sync.get('blackInk', function(keys) {
         	// 	console.log('keys', keys);
         	// });
         });
@@ -42,8 +35,9 @@ angular.module('blackInkApp').service('blackInkStorage', function ($q) {
 
     this.add = function (newValues) {
     	if(newValues=={}) return;
-    	console.log('add', newValues, _this.Data);
+    	// console.log('add', newValues, _this.Data);
     	var changed = false;
+    	if(!_this.Data || _this.Data === undefined) _this.Data = {};
         newValues.forEachProp(function(prop, val) {
         	if(_this.Data[prop] !== val)
         	{

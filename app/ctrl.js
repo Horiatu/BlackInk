@@ -3,7 +3,7 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, blackI
     $scope.RedoDis='true';
     // $scope.InkColor='black';
     // $scope.TextWeight='bold';
-    $scope.ShowHelp='inherit';
+    // $scope.ShowHelp='inherit';
     $scope.helpTooltip='hide help';
 
 	$scope.blackInkStorage = blackInkStorage;
@@ -11,15 +11,26 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, blackI
 	$scope.$watch('blackInkStorage.Data', function(value) {
 		if($scope.blackInkStorage.Data===undefined) return;
 		var changed = false;
+        if($scope.ShowHelp !== $scope.blackInkStorage.Data.ShowHelp) {
+            $scope.ShowHelp = $scope.blackInkStorage.Data.ShowHelp;
+            changed = true;
+        }
 		if($scope.InkColor !== $scope.blackInkStorage.Data.InkColor) {
 	        $scope.InkColor = $scope.blackInkStorage.Data.InkColor;
 	        changed = true;
 	    }
-		if($scope.TextWeight !== $scope.blackInkStorage.Data.TextWeight) {
-	        $scope.TextWeight = $scope.blackInkStorage.Data.TextWeight;
-	        changed = true;
-	    }
+        if($scope.TextWeight !== $scope.blackInkStorage.Data.TextWeight) {
+            $scope.TextWeight = $scope.blackInkStorage.Data.TextWeight;
+            changed = true;
+        }
         $scope.blackInkStorage.sync(changed);
+    });
+
+    $scope.$watch('ShowHelp', function(value) {
+        var showHelp = $scope.ShowHelp;
+        if(showHelp && showHelp !== undefined) {
+            $scope.add({'ShowHelp': showHelp});
+        }
     });
 
  	$scope.$watch('InkColor', function(value) {
@@ -36,7 +47,7 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, blackI
         }
     });
 
-    $scope.blackInkStorage.findAll({InkColor:'black', TextWeight:'bold'}).then(function(data){
+    $scope.blackInkStorage.findAll({InkColor:'black', TextWeight:'bold', ShowHelp:'none',}).then(function(data){
         // console.log('findAll', data);
         $scope.blackInkStorage.Data=data;
         // console.log('$scope.blackInkStorage.Data', $scope.blackInkStorage.Data);

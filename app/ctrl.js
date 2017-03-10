@@ -1,4 +1,4 @@
-angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, blackInkStorage) {
+angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, $http, blackInkStorage) {
 	$scope.UndoDis='true'; 
     $scope.RedoDis='true';
     // $scope.InkColor='black';
@@ -6,8 +6,8 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, blackI
     // $scope.ShowHelp='inherit';
     $scope.helpTooltip='hide help';
     $scope.NightMode='pink';
-    // $scope.Latitude = 43.7303873;
-    // $scope.Longitude = -79.32944619999999;
+    $scope.Latitude = 43.7303873;
+    $scope.Longitude = -79.32944619999999;
 
 	$scope.blackInkStorage = blackInkStorage;
 
@@ -113,6 +113,22 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, blackI
         } else { 
             alert("Geolocation is not supported by this browser.");
         }
+
+        $scope.getSunrise();
+    };
+
+    $scope.getSunrise = function() {
+        // var sunrise = function($scope, $http) {
+        $http({
+            method : "GET",
+            url : "http://api.sunrise-sunset.org/json?lat="+$scope.Latitude+"&lng="+$scope.Longitude
+        }).then(function mySucces(response) {
+            console.log(response.data.results);
+        }, function myError(response) {
+            console.log('Error:',response.statusText);
+        });
+    // };
+    // ();
     };
 
 });

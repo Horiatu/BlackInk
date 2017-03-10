@@ -43,8 +43,8 @@ body {
   opacity: 0.5;
 }
 
-.disabled {
-  opacity: 0.25;
+.toolbarBtn:disabled, .toolbarBtn:disabled:hover {
+    opacity: 0.25;
 }
 
 #closeBtn {
@@ -54,7 +54,7 @@ body {
     top: 4px;
 }
 
-.btn img:hover, .toolbarBtn:not(.disabled):hover, #sampleBtn:hover {
+.btn img:hover, .toolbarBtn:not(:disabled):hover, #sampleBtn:hover {
   opacity: 1;
   filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=2, Color='#444')";
   filter: url(#drop-shadow);

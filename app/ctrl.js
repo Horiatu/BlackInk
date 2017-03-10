@@ -5,6 +5,9 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, blackI
     // $scope.TextWeight='bold';
     // $scope.ShowHelp='inherit';
     $scope.helpTooltip='hide help';
+    $scope.NightMode='pink';
+    // $scope.Latitude = 43.7303873;
+    // $scope.Longitude = -79.32944619999999;
 
 	$scope.blackInkStorage = blackInkStorage;
 
@@ -21,6 +24,14 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, blackI
 	    }
         if($scope.TextWeight !== $scope.blackInkStorage.Data.TextWeight) {
             $scope.TextWeight = $scope.blackInkStorage.Data.TextWeight;
+            changed = true;
+        }
+        if($scope.Latitude !== $scope.blackInkStorage.Data.Latitude) {
+            $scope.Latitude = $scope.blackInkStorage.Data.Latitude;
+            changed = true;
+        }
+        if($scope.Longitude !== $scope.blackInkStorage.Data.Longitude) {
+            $scope.Longitude = $scope.blackInkStorage.Data.Longitude;
             changed = true;
         }
         $scope.blackInkStorage.sync(changed);
@@ -47,7 +58,15 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, blackI
         }
     });
 
-    $scope.blackInkStorage.findAll({InkColor:'black', TextWeight:'bold', ShowHelp:'none',}).then(function(data){
+    $scope.blackInkStorage.findAll({
+        InkColor:'black', 
+        TextWeight:'bold', 
+        ShowHelp:'none',
+        NightMode:'pink',
+        Latitude: 43.7303873,
+        Longitude: -79.32944619999999,
+
+    }).then(function(data){
         // console.log('findAll', data);
         $scope.blackInkStorage.Data=data;
         // console.log('$scope.blackInkStorage.Data', $scope.blackInkStorage.Data);
@@ -76,6 +95,24 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, blackI
     };
     $scope.closeExtension = function() {
     	 window.close();
+    };
+
+
+    $scope.getLocation = function () {
+        // var _this = this;
+        var showPosition = function (position) {
+            $scope.add({Latitude: $scope.Latitude = position.coords.latitude});
+            $scope.add({Longitude: $scope.Longitude = position.coords.longitude});
+            $scope.$apply();
+            //$scope.sync(true);
+            console.log('Latitude: '+ position.coords.latitude+' Longitude: '+position.coords.longitude);
+        };
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+            alert("Geolocation is not supported by this browser.");
+        }
     };
 
 });

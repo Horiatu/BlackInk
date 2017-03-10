@@ -4,6 +4,7 @@
 <head>
     <title>Black Ink</title>
     <link href='/inc/css/popup.css' rel='stylesheet'>
+    <link href='/inc/css/switch.css' rel='stylesheet'>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> --> 
 </head>
 
@@ -29,34 +30,76 @@
                 <tr>
                     <td style="color:{{InkColor}};font-weight:{{TextWeight}};">Color</td>
                     <td>
-                        <input type="radio" name="color" ng-model="InkColor" value="black"/>
+                        <input type="radio" name="color" id="clBlack" ng-model="InkColor" value="black"/>
                         <label for="clBlack">Black</label>
                     </td>
                     <td>
-                        <input type="radio" name="color" ng-model="InkColor" value="navy"/>
+                        <input type="radio" name="color" id="clBlue" ng-model="InkColor" value="navy"/>
                         <label for="clBlue">Blue</label>
                     </td>
                     <td>
-                        <input type="radio" name="color" ng-model="InkColor" value="#b60000"/>
+                        <input type="radio" name="color" id="clRed" ng-model="InkColor" value="#b60000"/>
                         <label for="clRed">Red</label>
                     </td>
                 </tr>
                 <tr>
                     <td style="color:{{InkColor}};font-weight:{{TextWeight}};">Weight</td>
                     <td>
-                        <input type="radio" name="weight" ng-model="TextWeight" value=""/>
+                        <input type="radio" name="weight" id="wNone" ng-model="TextWeight" value=""/>
                         <label for="wNone">Default</label>
                     </td>
                     <td>
-                        <input type="radio" name="weight" ng-model="TextWeight" value="normal"/>
+                        <input type="radio" name="weight" id="wNormal" ng-model="TextWeight" value="normal"/>
                         <label for="wNormal">Normal</label>
                     </td>
                     <td>
-                        <input type="radio" name="weight" ng-model="TextWeight" value="bold"/>
+                        <input type="radio" name="weight" id="wBold" ng-model="TextWeight" value="bold"/>
                         <label for="wBold">Bold</label>
                     </td>
                 </tr>
             </table>
+        </div>
+        <div id='auto' class='roundBorder'>
+            <table role='presentation' style="width: 100%;">
+                <tr>
+                    <td style="padding-bottom:6px;">Night mode:</td>
+                    <td>
+                        <label class="switch {{NightMode}}"><input type="checkbox" checked><i></i></label>
+                    </td><td>
+                        <input type="radio" name="nightMode" id="nPink" ng-model="NightMode" value="pink"/>
+                        <label for="nPink">Pink</label>
+                        <!-- </td><td> --> <br/>
+                        <input type="radio" name="nightMode" id="nInvert" ng-model="NightMode" value="black"/>
+                        <label for="nInvert">Invert</label>
+                    </td>
+                    <td style="padding-bottom:6px;">Auto:</td>
+                    <td>
+                        <label class="switch red"><input type="checkbox" ng-model="NightAuto"><i></i></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Invert:</td>
+                    <td>
+                        <label class="switch black"><input type="checkbox"><i></i></label>
+                    </td>
+                    <td colspan='3' style="text-align: end;">
+                        <label for='myLocation'>Get My Location</label>
+                        <input type="image" id='myLocation' src='/images/MyLocation.16.png' class='toolbarBtn' ng-click='getLocation()'>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id='location' class='roundBorder'>
+            <table role='presentation' style="width: 100%;">
+                <tr>
+                    <td>Latitude:</td>
+                    <td>{{Latitude | number : 4}}</td>
+                </tr>
+                <tr>
+                    <td>Longitude:</td>
+                    <td>{{Longitude | number : 4}}</td>
+                </tr>
+            </table>                
         </div>
     </form>
 

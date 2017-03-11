@@ -101,11 +101,11 @@
                 </tr>
                 <tr>
                     <td>Sunrise:</td>
-                    <th>{{SunriseTime | utcTimeStr2Local:'h:mm a' | lowercase}}</th>
+                    <th>{{SunriseTime | date:'h:mm:ss a' | lowercase}}</th>
                 </tr>
                 <tr>
                     <td>Sunset:</td>
-                    <th>{{SunsetTime | utcTimeStr2Local:'h:mm a' | lowercase}}</th>
+                    <th>{{SunsetTime | date:'h:mm:ss a' | lowercase}}</th>
                 </tr>
             </table>                
         </div>

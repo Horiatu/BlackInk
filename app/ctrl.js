@@ -107,12 +107,12 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, $http,
 
             var precision = 3;
             if($scope.Latitude.toFixed(precision) != position.coords.latitude.toFixed(precision)) {
-                console.log('Latitude:', $scope.Latitude.toFixed(precision), position.coords.latitude.toFixed(precision));
+                //console.log('Latitude:', $scope.Latitude.toFixed(precision), position.coords.latitude.toFixed(precision));
                 $scope.add({Latitude: $scope.Latitude = position.coords.latitude});
                 override = true;
             }
             if($scope.Longitude.toFixed(precision) != position.coords.longitude.toFixed(precision)) {
-                console.log('Longitude:', $scope.Longitude.toFixed(precision), position.coords.longitude.toFixed(precision));
+                //console.log('Longitude:', $scope.Longitude.toFixed(precision), position.coords.longitude.toFixed(precision));
                 $scope.add({Longitude: $scope.Longitude = position.coords.longitude});
                 override = true;
             }
@@ -121,7 +121,7 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, $http,
             {
                 $scope.$apply();
             }
-            console.log('Latitude: '+ position.coords.latitude+' Longitude: '+position.coords.longitude+' '+override);
+            //console.log('Latitude: '+ position.coords.latitude+' Longitude: '+position.coords.longitude+' '+override);
         };
 
         $scope.ShowLocation = !$scope.ShowLocation;
@@ -145,15 +145,15 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, $http,
                 url : "http://api.sunrise-sunset.org/json?lat="+$scope.Latitude+"&lng="+$scope.Longitude+"&date=today"
             }).then(function mySucces(response) {
                 response.data.results.date = new Date().toLocaleDateString();
-                console.log(response.data.results);
+                //console.log(response.data.results);
                 $scope.add({Sunset: response.data.results});
                 // $scope.$apply();
             }, function myError(response) {
                 console.log('Sunrise Service Error:',response.statusText);
             });
         }
-        $scope.SunriseTime = $scope.blackInkStorage.Data.Sunset.sunrise;
-        $scope.SunsetTime = $scope.blackInkStorage.Data.Sunset.sunset;
+        $scope.SunriseTime = $scope.blackInkStorage.Data.Sunset.sunrise.utcTime2Local();
+        $scope.SunsetTime = $scope.blackInkStorage.Data.Sunset.sunset.utcTime2Local();
     };
 
 });

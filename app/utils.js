@@ -119,3 +119,20 @@ if (!('some' in Array.prototype)) {
         return false;
     };
 }
+
+if (!('utcTime2Local' in String.prototype)) {
+    String.prototype.utcTime2Local= function(tester) {
+    	var pad2 = function(n) {
+    		return ("00" + n).substr(-2,2);
+    	};
+	    var m = /(\d{1,2}):(\d{1,2}):(\d{1,2})\s+(AM|PM)/gi.exec(this);
+		if (m === null) return null;
+
+	    if(m[4] === 'PM') m[1] = pad2(Number(m[1])+12);
+
+	    var d = new Date();
+    	var date = d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())+'T'+m[1]+':'+m[2]+':'+m[3]+'Z';
+    	//console.log(date);
+        return new Date(date);
+    };
+}

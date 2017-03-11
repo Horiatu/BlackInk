@@ -123,7 +123,7 @@ if (!('some' in Array.prototype)) {
 if (!('utcTime2Local' in String.prototype)) {
     String.prototype.utcTime2Local= function(tester) {
     	var pad2 = function(n) {
-    		return ("00" + n).substr(-2,2);
+    		return ("00" + n).slice(-2);
     	};
 	    var m = /(\d{1,2}):(\d{1,2}):(\d{1,2})\s+(AM|PM)/gi.exec(this);
 		if (m === null) return null;
@@ -136,3 +136,21 @@ if (!('utcTime2Local' in String.prototype)) {
         return new Date(date);
     };
 }
+
+// function injectCss(contentDocument) {
+// 	var _injectCss = function(css) {
+//     	if ($("head").length === 0) {
+//             $("body").before(css);
+//         } else {
+//             $("head").append(css);
+//         }
+// 	};
+
+//     if(!contentDocument.getElementById("colorPickerCss")) {
+//         _private._injectCss('<link id="colorPickerCss" rel="stylesheet" type="text/css" href="' + chrome.extension.getURL('/inc/css/ColorPicker.css') + '" />');
+//     }
+
+//     if(!contentDocument.getElementById("dropitCss")) {
+//         _private._injectCss('<link id="dropitCss" rel="stylesheet" type="text/css" href="' + chrome.extension.getURL('/inc/css/dropit.css') + '" />');
+//     }
+// }

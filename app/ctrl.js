@@ -8,6 +8,9 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, $http,
     $scope.NightMode='pink';
     $scope.Latitude = 43.7303873;
     $scope.Longitude = -79.32944619999999;
+    $scope.ShowLocation = false;
+    $scope.SunriseTime = null;
+    $scope.SunsetTime = null;
 
 	$scope.blackInkStorage = blackInkStorage;
 
@@ -65,7 +68,6 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, $http,
         NightMode:'pink',
         Latitude: 43.7303873,
         Longitude: -79.32944619999999,
-
     }).then(function(data){
         // console.log('findAll', data);
         $scope.blackInkStorage.Data=data;
@@ -100,13 +102,30 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, $http,
 
     $scope.getLocation = function () {
         // var _this = this;
+        var override = false;
         var showPosition = function (position) {
-            $scope.add({Latitude: $scope.Latitude = position.coords.latitude});
-            $scope.add({Longitude: $scope.Longitude = position.coords.longitude});
-            $scope.$apply();
-            //$scope.sync(true);
-            console.log('Latitude: '+ position.coords.latitude+' Longitude: '+position.coords.longitude);
+
+            var precision = 3;
+            if($scope.Latitude.toFixed(precision) != position.coords.latitude.toFixed(precision)) {
+                console.log('Latitude:', $scope.Latitude.toFixed(precision), position.coords.latitude.toFixed(precision));
+                $scope.add({Latitude: $scope.Latitude = position.coords.latitude});
+                override = true;
+            }
+            if($scope.Longitude.toFixed(precision) != position.coords.longitude.toFixed(precision)) {
+                console.log('Longitude:', $scope.Longitude.toFixed(precision), position.coords.longitude.toFixed(precision));
+                $scope.add({Longitude: $scope.Longitude = position.coords.longitude});
+                override = true;
+            }
+            
+            if(override) 
+            {
+                $scope.$apply();
+            }
+            console.log('Latitude: '+ position.coords.latitude+' Longitude: '+position.coords.longitude+' '+override);
         };
+
+        $scope.ShowLocation = !$scope.ShowLocation;
+        if(!$scope.ShowLocation) return;
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
@@ -114,21 +133,27 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, $http,
             alert("Geolocation is not supported by this browser.");
         }
 
-        $scope.getSunrise();
+        $scope.getSunrise(override);
     };
 
-    $scope.getSunrise = function() {
-        // var sunrise = function($scope, $http) {
-        $http({
-            method : "GET",
-            url : "http://api.sunrise-sunset.org/json?lat="+$scope.Latitude+"&lng="+$scope.Longitude
-        }).then(function mySucces(response) {
-            console.log(response.data.results);
-        }, function myError(response) {
-            console.log('Error:',response.statusText);
-        });
-    // };
-    // ();
+    $scope.getSunrise = function(override) {
+
+        if(override || $scope.blackInkStorage.Data.Sunset.date != new Date().toLocaleDateString())
+        {
+            $http({
+                method : "GET",
+                url : "http://api.sunrise-sunset.org/json?lat="+$scope.Latitude+"&lng="+$scope.Longitude+"&date=today"
+            }).then(function mySucces(response) {
+                response.data.results.date = new Date().toLocaleDateString();
+                console.log(response.data.results);
+                $scope.add({Sunset: response.data.results});
+                // $scope.$apply();
+            }, function myError(response) {
+                console.log('Sunrise Service Error:',response.statusText);
+            });
+        }
+        $scope.SunriseTime = $scope.blackInkStorage.Data.Sunset.sunrise;
+        $scope.SunsetTime = $scope.blackInkStorage.Data.Sunset.sunset;
     };
 
 });

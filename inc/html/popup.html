@@ -89,7 +89,7 @@
                 </tr>
             </table>
         </div>
-        <div id='location' class='roundBorder'>
+        <div id='location' class='roundBorder' ng-class='{show: ShowLocation,}' style="display:none;" >
             <table id="location">
                 <tr>
                     <td>Latitude:</td>
@@ -98,6 +98,14 @@
                 <tr>
                     <td>Longitude:</td>
                     <th>{{Longitude | number : 4}}</th>
+                </tr>
+                <tr>
+                    <td>Sunrise:</td>
+                    <th>{{SunriseTime | utcTimeStr2Local:'HH:mm:ss'}}</th>
+                </tr>
+                <tr>
+                    <td>Sunset:</td>
+                    <th>{{SunsetTime | utcTimeStr2Local:'HH:mm:ss'}}</th>
                 </tr>
             </table>                
         </div>

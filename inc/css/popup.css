@@ -102,6 +102,10 @@ body {
 }
 
 #location th, #location td {
-    width:60px;
+    width:100px;
     text-align: right;
+}
+
+.show {
+    display:inherit !important;
 }

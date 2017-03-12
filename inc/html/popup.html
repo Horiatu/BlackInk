@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='en' ng-app='blackInkApp'>
 
 <head>
     <title>Black Ink</title>
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700|Open+Sans+Condensed:300" rel="stylesheet">
     <link href='/inc/css/popup.css' rel='stylesheet'>
     <link href='/inc/css/switch.css' rel='stylesheet'>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> --> 
 </head>
 
-<body ng-app='blackInkApp' ng-controller='BlackInkCtrl'>
+<body ng-controller='BlackInkCtrl'>
     <form id='form'>
         <div class='header' role='banner'>
             <img src='/images/logos/32.png' style='width:32px; height:32px;' class='shadow'/>
@@ -101,11 +102,11 @@
                 </tr>
                 <tr>
                     <td>Sunrise:</td>
-                    <th>{{SunriseTime | date:'h:mm:ss a' | lowercase}}</th>
+                    <th>{{Sunrise | date:'h:mm:ss a' | lowercase}}</th>
                 </tr>
                 <tr>
                     <td>Sunset:</td>
-                    <th>{{SunsetTime | date:'h:mm:ss a' | lowercase}}</th>
+                    <th>{{Sunset | date:'h:mm:ss a' | lowercase}}</th>
                 </tr>
             </table>                
         </div>
@@ -114,8 +115,10 @@
     <script type="text/javascript" src="/lib/angular/angular.js"></script>
     <script type="text/javascript" src="/app/utils.js"></script>
     <script type="text/javascript" src="/app/app.js"></script>
+    <script type="text/javascript" src="/app/storageService.js"></script>
+    <script type="text/javascript" src="/app/tabService.js"></script>
+    <script type="text/javascript" src="/app/sunriseService.js"></script>
     <script type="text/javascript" src="/app/ctrl.js"></script>
-    <script type="text/javascript" src="/app/blackIncService.js"></script>
 
 </body>
  

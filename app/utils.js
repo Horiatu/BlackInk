@@ -137,20 +137,10 @@ if (!('utcTime2Local' in String.prototype)) {
     };
 }
 
-// function injectCss(contentDocument) {
-// 	var _injectCss = function(css) {
-//     	if ($("head").length === 0) {
-//             $("body").before(css);
-//         } else {
-//             $("head").append(css);
-//         }
-// 	};
+if (!('isToday' in Date.prototype)) {
+    Date.prototype.isToday= function(tester /*opt*/) {
+    	var d = new Date();
+    	return (this.getYear() == d.getYear()) && (this.getMonth() == d.getMonth()) && (this.getDate() == d.getDate());
+    };
+}
 
-//     if(!contentDocument.getElementById("colorPickerCss")) {
-//         _private._injectCss('<link id="colorPickerCss" rel="stylesheet" type="text/css" href="' + chrome.extension.getURL('/inc/css/ColorPicker.css') + '" />');
-//     }
-
-//     if(!contentDocument.getElementById("dropitCss")) {
-//         _private._injectCss('<link id="dropitCss" rel="stylesheet" type="text/css" href="' + chrome.extension.getURL('/inc/css/dropit.css') + '" />');
-//     }
-// }

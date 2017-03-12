@@ -1,10 +1,7 @@
-<style>
-@import url('https://fonts.googleapis.com/css?family=Griffy|Lobster+Two:700');
-</style>
-
 body {
     margin: 0;
-    padding: 0;
+    padding: 4px;
+    -webkit-font-smoothing: antialiased;
 }
 
 .shadow {
@@ -27,13 +24,12 @@ body {
 }
 
 .header h1 {
-    font-family: 'Lobster Two', cursive;
-    text-shadow: 2px 2px 2px gray;
-    font-size: 24px;
-    font-weight: 700;
+    font-family: 'Amatic SC', cursive;
+    text-shadow: 2px 2px 2px pink;
+    font-size: 26px;
     white-space: nowrap;
     margin: 0;
-    margin-left: 4px;
+    margin-left: 8px;
 } 
 
 .toolbarBtn {
@@ -72,8 +68,8 @@ body {
 
 #toolbar {
     position:absolute;
-    right:8px;
-    top:29px;
+    right:4px;
+    top:24px;
     background: rgba(255,255,255,0.5);
     -webkit-filter: drop-shadow(0px 0px 4px aliceblue);
     padding: 1px 3px 0px 3px;
@@ -81,7 +77,7 @@ body {
 }
 
 #help {
-    font-family: Griffy, cursive;
+    font-family: 'Open Sans Condensed', sans-serif;
     padding: 0 4px;
 }
 

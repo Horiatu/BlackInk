@@ -1,4 +1,4 @@
-angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, $http, blackInkStorage) {
+angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, $http, blackInkStorage, sunriseService, tabService) {
 	$scope.UndoDis='true'; 
     $scope.RedoDis='true';
     // $scope.InkColor='black';
@@ -133,7 +133,20 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, $http,
             alert("Geolocation is not supported by this browser.");
         }
 
-        $scope.getSunrise(override);
+        //$scope.getSunrise(override);
+        if(override || !$scope.Sunrise || !$scope.Sunrise.isToday()) {
+            sunriseService.getSunrise($scope.Latitude, $scope.Longitude, override).then(
+                function mySuccess(response) {
+                    console.log('mySuccess:', response);
+                    $scope.add({
+                        Sunrise: ($scope.Sunrise = response.Sunrise),
+                        Sunset: ($scope.Sunset = response.Sunset)
+                    });
+                },
+                function myError(response) {
+                    console.log('myError:', response);
+                });
+        }
     };
 
     $scope.getSunrise = function(override) {

@@ -1,7 +1,7 @@
-angular.module('blackInkApp').service('blackInkStorage', function ($q) {
+angular.module('blackInkApp').service('tabService', function ($q) {
     var _this = this;
 
-    $scope.getSelectedTab = function() {
+    this.getSelectedTab = function() {
         var dfd = $q.defer();
 
         chrome.tabs.query({
@@ -14,7 +14,7 @@ angular.module('blackInkApp').service('blackInkStorage', function ($q) {
         return dfd.promise();
     };
 
-    $scope.validateTab = function(tab) {
+    this.validateTab = function(tab) {
         var dfd = $q.defer();
         var url = tab.url;
 
@@ -27,6 +27,21 @@ angular.module('blackInkApp').service('blackInkStorage', function ($q) {
         }
 
         return dfd.promise();
+    };
+
+    this.injectCss = function(contentDocument) {
+        // var _injectCss = function(css) {
+        //     if ($("head").length === 0) {
+        //             $("body").before(css);
+        //         } else {
+        //             $("head").append(css);
+        //         }
+        // };
+
+        // if(!contentDocument.getElementById("colorPickerCss")) {
+        //     _injectCss('<link id="colorPickerCss" rel="stylesheet" type="text/css" href="' + 
+        //         chrome.extension.getURL('/inc/css/ColorPicker.css') + '" />');
+        // }
     };
 
 });

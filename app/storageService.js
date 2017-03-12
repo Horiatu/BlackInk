@@ -8,6 +8,7 @@ angular.module('blackInkApp').service('blackInkStorage', function ($q) {
     	chrome.storage.sync.get('blackInk', function(keys) {
         	keys.forEachProp(function(name, value) {
         		value.forEachProp(function(k, v) {
+        			if(k == 'Sunrise' || k == 'Sunset') v = new Date(v);
 	     		 	data[k] = v;
          		});
          	});
@@ -23,9 +24,9 @@ angular.module('blackInkApp').service('blackInkStorage', function ($q) {
     	var changed = false;
     	if(!_this.Data || _this.Data === undefined) _this.Data = {};
         newValues.forEachProp(function(prop, val) {
-        	if(_this.Data[prop] !== val)
+        	if(_this.Data[prop].toString() !== val.toString())
         	{
-        		_this.Data[prop] = val;
+        		_this.Data[prop] = val.toString();
         		changed = true;
         	}
         });

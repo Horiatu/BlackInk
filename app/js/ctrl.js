@@ -1,4 +1,4 @@
-angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, $http, blackInkStorage, sunriseService, tabService) {
+angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, $http, BlackInkStorage, SunriseService, TabService) {
 	$scope.UndoDis='true'; 
     $scope.RedoDis='true';
     // $scope.InkColor='black';
@@ -12,32 +12,32 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, $http,
     $scope.SunriseTime = null;
     $scope.SunsetTime = null;
 
-	$scope.blackInkStorage = blackInkStorage;
+	$scope.BlackInkStorage = BlackInkStorage;
 
-	$scope.$watch('blackInkStorage.Data', function(value) {
-		if($scope.blackInkStorage.Data===undefined) return;
+	$scope.$watch('BlackInkStorage.Data', function(value) {
+		if($scope.BlackInkStorage.Data===undefined) return;
 		var changed = false;
-        if($scope.ShowHelp !== $scope.blackInkStorage.Data.ShowHelp) {
-            $scope.ShowHelp = $scope.blackInkStorage.Data.ShowHelp;
+        if($scope.ShowHelp !== $scope.BlackInkStorage.Data.ShowHelp) {
+            $scope.ShowHelp = $scope.BlackInkStorage.Data.ShowHelp;
             changed = true;
         }
-		if($scope.InkColor !== $scope.blackInkStorage.Data.InkColor) {
-	        $scope.InkColor = $scope.blackInkStorage.Data.InkColor;
+		if($scope.InkColor !== $scope.BlackInkStorage.Data.InkColor) {
+	        $scope.InkColor = $scope.BlackInkStorage.Data.InkColor;
 	        changed = true;
 	    }
-        if($scope.TextWeight !== $scope.blackInkStorage.Data.TextWeight) {
-            $scope.TextWeight = $scope.blackInkStorage.Data.TextWeight;
+        if($scope.TextWeight !== $scope.BlackInkStorage.Data.TextWeight) {
+            $scope.TextWeight = $scope.BlackInkStorage.Data.TextWeight;
             changed = true;
         }
-        if($scope.Latitude !== $scope.blackInkStorage.Data.Latitude) {
-            $scope.Latitude = $scope.blackInkStorage.Data.Latitude;
+        if($scope.Latitude !== $scope.BlackInkStorage.Data.Latitude) {
+            $scope.Latitude = $scope.BlackInkStorage.Data.Latitude;
             changed = true;
         }
-        if($scope.Longitude !== $scope.blackInkStorage.Data.Longitude) {
-            $scope.Longitude = $scope.blackInkStorage.Data.Longitude;
+        if($scope.Longitude !== $scope.BlackInkStorage.Data.Longitude) {
+            $scope.Longitude = $scope.BlackInkStorage.Data.Longitude;
             changed = true;
         }
-        $scope.blackInkStorage.sync(changed);
+        $scope.BlackInkStorage.sync(changed);
     });
 
     $scope.$watch('ShowHelp', function(value) {
@@ -61,7 +61,7 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, $http,
         }
     });
 
-    $scope.blackInkStorage.findAll({
+    $scope.BlackInkStorage.findAll({
         InkColor:'black', 
         TextWeight:'bold', 
         ShowHelp:'none',
@@ -70,16 +70,16 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, $http,
         Longitude: -79.32944619999999,
     }).then(function(data){
         // console.log('findAll', data);
-        $scope.blackInkStorage.Data=data;
-        // console.log('$scope.blackInkStorage.Data', $scope.blackInkStorage.Data);
+        $scope.BlackInkStorage.Data=data;
+        // console.log('$scope.BlackInkStorage.Data', $scope.BlackInkStorage.Data);
     });
 
     $scope.add = function(newContent) {
-        blackInkStorage.add(newContent);
+        BlackInkStorage.add(newContent);
     };
 
     $scope.removeAll = function() {
-        blackInkStorage.removeAll();
+        BlackInkStorage.removeAll();
     };
 
     // $scope.removeAll();
@@ -135,7 +135,7 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, $http,
 
         //$scope.getSunrise(override);
         if(override || !$scope.Sunrise || !$scope.Sunrise.isToday()) {
-            sunriseService.getSunrise($scope.Latitude, $scope.Longitude, override).then(
+            SunriseService.getSunrise($scope.Latitude, $scope.Longitude, override).then(
                 function mySuccess(response) {
                     console.log('mySuccess:', response);
                     $scope.add({
@@ -151,7 +151,7 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, $http,
 
     $scope.getSunrise = function(override) {
 
-        if(override || $scope.blackInkStorage.Data.Sunset.date != new Date().toLocaleDateString())
+        if(override || $scope.BlackInkStorage.Data.Sunset.date != new Date().toLocaleDateString())
         {
             $http({
                 method : "GET",
@@ -165,8 +165,8 @@ angular.module('blackInkApp').controller('BlackInkCtrl', function($scope, $http,
                 console.log('Sunrise Service Error:',response.statusText);
             });
         }
-        $scope.SunriseTime = $scope.blackInkStorage.Data.Sunset.sunrise.utcTime2Local();
-        $scope.SunsetTime = $scope.blackInkStorage.Data.Sunset.sunset.utcTime2Local();
+        $scope.SunriseTime = $scope.BlackInkStorage.Data.Sunset.sunrise.utcTime2Local();
+        $scope.SunsetTime = $scope.BlackInkStorage.Data.Sunset.sunset.utcTime2Local();
     };
 
 });

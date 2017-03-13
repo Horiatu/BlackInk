@@ -1,4 +1,4 @@
-angular.module('blackInkApp').service('tabService', function ($q) {
+angular.module('blackInkApp').service('TabService', function ($q) {
     var _this = this;
 
     this.getSelectedTab = function() {

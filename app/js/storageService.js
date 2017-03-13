@@ -1,4 +1,4 @@
-angular.module('blackInkApp').service('blackInkStorage', function ($q) {
+angular.module('blackInkApp').service('BlackInkStorage', function ($q) {
     var _this = this;
     //_this.Data = {};
 

@@ -1,10 +1,10 @@
-angular.module('blackInkApp').service('sunriseService', function ($q, $http) {
+angular.module('blackInkApp').service('SunriseService', function ($q, $http) {
     var _this = this;
 
     this.getSunrise = function(latitude, longitude) {
 
         var defer= $q.defer();
-        // if(override || $scope.blackInkStorage.Data.Sunset.date != new Date().toLocaleDateString())
+        // if(override || $scope.BlackInkStorage.Data.Sunset.date != new Date().toLocaleDateString())
         // {
             $http({
                 method : "GET",

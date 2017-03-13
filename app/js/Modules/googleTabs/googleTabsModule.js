@@ -1,0 +1,1 @@
+angular.module('googleTabsModule',[mainApp.googleTabs.controllers]);

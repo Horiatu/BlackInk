@@ -1,7 +1,4 @@
-(function () {
-    'use strict';
+console.log('mainApp');
 
-	angular
-		.module("blackInkApp", []);
+angular.module("mainApp", [storageModule]);//, sunriseModule, googleTabsModule]);
 		
-})(); 

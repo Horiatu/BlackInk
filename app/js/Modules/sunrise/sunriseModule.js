@@ -1,0 +1,1 @@
+angular.module('sunriseModule',[mainApp.sunrise.controllers]);
